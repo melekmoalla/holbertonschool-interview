@@ -20,6 +20,6 @@ def canUnlockAll(boxes):
             if a != i:
                 list_lock.extend(b)
             a += 1
-        if i  not in  list_lock:
+        if i not in list_lock:
             return False
     return True
