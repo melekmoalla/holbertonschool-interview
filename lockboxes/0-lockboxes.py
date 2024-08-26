@@ -15,8 +15,11 @@ def canUnlockAll(boxes):
 
     for i in range(1, len(boxes)):
         list_lock = []
-        for b in boxes[:1]:
-            list_lock.extend(b)
-            if i in  list_lock:
-                return False
+        a = 0
+        for b in boxes:
+            if a != i:
+                list_lock.extend(b)
+            a += 1
+        if i  not in  list_lock:
+            return False
     return True
