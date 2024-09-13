@@ -6,6 +6,7 @@
  *
  * @parent: Pointer to the root of the tree
  * @value: new value
+ * Return: new_node or null
  */
 
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value)
