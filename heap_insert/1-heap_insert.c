@@ -24,26 +24,23 @@ heap_t *heap_insert(heap_t **root, int value)
 		return (new_node);
 	}
 	queue = malloc(1024 * sizeof(heap_t *));
-	if (!queue)     return (NULL);
+	if (!queue)     
+		return (NULL);
 	queue[rear++] = *root;
 	while (1)
 	{
 		current = queue[front++];
 		if (current->left == NULL)
-		{
-			current->left = new_node;
+		{ current->left = new_node;
 			new_node->parent = current;
-			break;
-		}
-		else queue[rear++] = current->left;
+			break; }
+		else 
+		queue[rear++] = current->left;
 		if (current->right == NULL)
-		{
-			current->right = new_node;
+		{current->right = new_node;
 			new_node->parent = current;
-			break;
-		}
-		else queue[rear++] = current->right;
-	}
+			break; }
+		else queue[rear++] = current->right; }
 	while (new_node->parent && new_node->n > new_node->parent->n)
 	{
 		int tmp = new_node->n;
