@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "binary_trees.h"
 /**
- * binary_tree_node - insert a binary tree
+ * heap_insert - insert a binary tree
  * @root: is a double pointer to the root node of the Heap
  * @value:  is the value to store in the node to be inserted
  * Return:  pointer to the inserted node, or NULL on failure
