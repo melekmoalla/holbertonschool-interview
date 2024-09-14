@@ -63,5 +63,7 @@ heap_t *heap_insert(heap_t **root, int value)
         new_node->parent->n = tmp;
         new_node = new_node->parent;
     }
+    free(queue);
+
     return (new_node);
 }
