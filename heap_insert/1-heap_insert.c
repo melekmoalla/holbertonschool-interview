@@ -34,12 +34,8 @@ heap_t *heap_insert(heap_t **root, int value)
     queue[rear++] = *root;
     while (1)
     {
-        printf(" m%zu ", front);
-        printf("z%zu ", rear);
 
         current = queue[front++];
-
-        printf("p%d ", current->n);
 
         if (current->left == NULL)
         {
@@ -50,7 +46,6 @@ heap_t *heap_insert(heap_t **root, int value)
         else
             queue[rear++] = current->left;
 
-        printf("z%zu ", rear);
         if (current->right == NULL)
         {
             current->right = new_node;
@@ -59,7 +54,6 @@ heap_t *heap_insert(heap_t **root, int value)
         }
         else
             queue[rear++] = current->right;
-        printf("z%zu ", rear);
     }
 
     while (new_node->parent && new_node->n > new_node->parent->n)
