@@ -3,6 +3,7 @@
 Main file for testing
 """
 
+
 def minOperations(n):
     if n <= 1:
         return 0
@@ -18,6 +19,6 @@ def minOperations(n):
         while value % m == 0:
             value = value // m
             h += m
-        m += 1    
+        m += 1
 
     return h
