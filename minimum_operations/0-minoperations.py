@@ -17,6 +17,5 @@ def minOperations(n):
     while(1):
         value = value // 2
         m +=2
-        print(m)
         if value == 2 or value == 3 or value == 0 or value == 1:
             return m + value - h
