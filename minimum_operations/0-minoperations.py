@@ -4,8 +4,8 @@ Main file for testing
 """
 
 def minOperations(n):
-    if n == 0:
-        return 0
+    if n <= 3:
+        return n
 
     m = 0
 
