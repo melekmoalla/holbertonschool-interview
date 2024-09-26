@@ -16,8 +16,11 @@ def minOperations(n):
     if n % 2 != 0:
         j = 1
     while value > 1:
+        
         while value % m == 0:
+            
             value = value // m
+            print(value)
             h += m
         m += 1
 
