@@ -118,7 +118,7 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
         }
         else{
             print_grid(grid1);
-            printf("=\n");
+            
         }
         for (i = 0; i < 3; i++)
         {

@@ -77,6 +77,7 @@ int main(void)
 
     sandpiles_sum(grid1, grid2);
 
+    printf("=\n");
     print_grid(grid1);
 
     return (EXIT_SUCCESS);
