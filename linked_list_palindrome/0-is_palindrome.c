@@ -23,13 +23,15 @@ int is_palindrome(listint_t **head)
 	{
 		new = malloc(sizeof(listint_t));
 		if (new == NULL)
-        {
-            while (current2 != NULL)
+		{
+			while (current2 != NULL)
+			{
 				free_listint(new);
 				free_listint(current);
 				free_listint(current2);
-            return (0);
-        }
+			}
+			return (0);
+		}
 
 		new->n = current->n;
 		new->next = NULL;
