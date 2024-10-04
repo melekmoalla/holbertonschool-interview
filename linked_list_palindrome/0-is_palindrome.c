@@ -12,11 +12,11 @@ int is_palindrome(listint_t **head)
 
 	listint_t *new;
 	listint_t *current;
-	listint_t *current2;
+	listint_t *current2 = NULL;
 	listint_t *current3;
 
-	if (*head == NULL)
-		return (1);
+    if (*head == NULL || (*head)->next == NULL)
+        return (1);
 
 	current2 = NULL;
 	current = *head;
