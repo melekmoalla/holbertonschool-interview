@@ -56,10 +56,10 @@ int is_palindrome(listint_t **head)
 	{
 		if (current->n != current2->n)
 		{
-			while (current2 != NULL)
+			while (current3 != NULL)
 			{
-				listint_t *temp = current2;
-				current2 = current2->next;
+				listint_t *temp = current3;
+				current3 = current3->next;
 				free(temp);
 			}
 			return (0);
