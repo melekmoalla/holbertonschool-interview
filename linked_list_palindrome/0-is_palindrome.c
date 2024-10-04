@@ -73,6 +73,11 @@ int is_palindrome(listint_t **head)
 		current3 = current3->next;
 		free(temp);
 	}
-	
+	while (current != NULL)
+	{
+		listint_t *temp = current;
+		current = current->next;
+		free(temp);
+	}
 	return (1);
 }
