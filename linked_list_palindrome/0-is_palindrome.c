@@ -9,55 +9,68 @@
  */
 int is_palindrome(listint_t **head)
 {
-    listint_t *current = *head;
-    listint_t *reversed = NULL;
-    listint_t *temp;
+    listint_t *slow, *fast, *second_half, *prev = NULL, *temp;
+    int is_palindrome = 1;
 
-    // If the list is empty, it's considered a palindrome
-    if (*head == NULL)
+    // If the list is empty or has one node, it's a palindrome
+    if (*head == NULL || (*head)->next == NULL)
         return (1);
 
-    // Reverse the linked list without malloc
-    while (current != NULL)
+    slow = *head;
+    fast = *head;
+
+    // Find the middle of the list using the fast and slow pointer technique
+    while (fast != NULL && fast->next != NULL)
     {
-        // Create a new node in the reversed list
-        temp = malloc(sizeof(listint_t));  // Use temp to hold the new node
-        if (temp == NULL)
-            return (0);  // Handle malloc failure
-        
-        temp->n = current->n;
-        temp->next = reversed;  // Point to the previous head of reversed list
-        reversed = temp;        // Update the head of the reversed list
-        current = current->next; // Move to the next node
+        fast = fast->next->next;
+        prev = slow;
+        slow = slow->next;
     }
 
-    current = *head; // Reset current to the head of the original list
+    // If the list has an odd number of nodes, skip the middle node
+    if (fast != NULL)
+        slow = slow->next;
 
-    // Compare the original list with the reversed list
-    while (current != NULL && reversed != NULL)
+    // Reverse the second half of the list
+    second_half = slow;
+    prev->next = NULL; // Terminate the first half of the list
+
+    // Reverse the second half
+    while (second_half != NULL)
     {
-        if (current->n != reversed->n)
+        temp = second_half;
+        second_half = second_half->next;
+        temp->next = prev;
+        prev = temp;
+    }
+
+    // Compare the two halves
+    listint_t *first_half = *head;
+    second_half = prev; // The reversed second half
+
+    while (second_half != NULL)
+    {
+        if (first_half->n != second_half->n)
         {
-            // Free the reversed list before returning
-            while (reversed != NULL)
-            {
-                temp = reversed;
-                reversed = reversed->next;
-                free(temp);  // Free the temporary node
-            }
-            return (0); // Not a palindrome
+            is_palindrome = 0; // Not a palindrome
+            break;
         }
-        current = current->next;  // Move to the next node in the original list
-        reversed = reversed->next; // Move to the next node in the reversed list
+        first_half = first_half->next;
+        second_half = second_half->next;
     }
 
-    // Free the reversed list after comparison
-    while (reversed != NULL)
+    // Restore the original list (optional)
+    // Reverse the second half back to its original form
+    second_half = prev; // Reset to the head of the reversed half
+    prev = NULL;
+
+    while (second_half != NULL)
     {
-        temp = reversed;
-        reversed = reversed->next;
-        free(temp); // Free the temporary node
+        temp = second_half;
+        second_half = second_half->next;
+        temp->next = prev;
+        prev = temp;
     }
 
-    return (1); // It's a palindrome
+    return is_palindrome; // Return 0 or 1
 }
