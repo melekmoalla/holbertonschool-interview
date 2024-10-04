@@ -24,11 +24,8 @@ listint_t *add_nodeint_front(listint_t **head, const int n)
 int is_palindrome(listint_t **head)
 {
 
-	listint_t *new;
-
-	new = NULL;
-
-	listint_t *current;
+    listint_t *new = NULL;
+    listint_t *current;
 
 	if (*head == NULL)
 		return (1);
