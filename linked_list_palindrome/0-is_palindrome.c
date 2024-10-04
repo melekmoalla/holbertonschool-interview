@@ -1,11 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "lists.h"
 
 /**
  * is_palindrome - checks if a singly linked list is a palindrome
- * @head: pointer to head of list
- * Return: 0 or 1
+ * @head: pointer to the head of the list
+ * Return: 0 if not a palindrome, 1 if it is a palindrome
  */
 int is_palindrome(listint_t **head)
 {
@@ -19,7 +17,7 @@ int is_palindrome(listint_t **head)
     slow = *head;
     fast = *head;
 
-    // Find the middle of the list using the fast and slow pointer technique
+    // Find the middle of the list
     while (fast != NULL && fast->next != NULL)
     {
         fast = fast->next->next;
@@ -33,7 +31,7 @@ int is_palindrome(listint_t **head)
 
     // Reverse the second half of the list
     second_half = slow;
-    prev->next = NULL; // Terminate the first half of the list
+    prev->next = NULL; // Terminate the first half
 
     // Reverse the second half
     while (second_half != NULL)
