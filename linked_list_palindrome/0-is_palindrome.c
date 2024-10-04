@@ -2,6 +2,20 @@
 #include <stdlib.h>
 #include "lists.h"
 
+listint_t *add_nodeint_front(listint_t **head, const int n)
+{
+	listint_t *new_node;
+
+	new_node = malloc(sizeof(listint_t));
+	if (new_node == NULL)
+		return (NULL);
+
+	new_node->n = n;
+	new_node->next = *head;
+	*head = new_node;
+
+	return (*head);
+}
 /**
  * is_palindrome - checks if a singly linked list is a palindrome
  * @head: pointer to head of list
@@ -9,59 +23,37 @@
  */
 int is_palindrome(listint_t **head)
 {
-    listint_t *new, *current, *current2;
-    int is_palindrome = 1; // Flag to indicate palindrome status
 
-    if (head == NULL || *head == NULL)
-        return (1); // Empty list is a palindrome
+	listint_t *new;
 
-    current2 = NULL;
-    current = *head;
+	new = NULL;
 
-    // Reverse the list while creating a new one
-    while (current != NULL)
-    {
-        new = malloc(sizeof(listint_t));
-        if (new == NULL)
-        {
-            // Free previously allocated nodes in case of allocation failure
-            while (current2 != NULL)
-            {
-                listint_t *temp = current2;
-                current2 = current2->next;
-                free(temp);
-            }
-            return (0); // Memory allocation failed
-        }
+	listint_t *current;
 
-        new->n = current->n;
-        new->next = current2; // Add to the front of new list (reversing)
-        current2 = new; // Move current2 to new node
-        current = current->next; // Move to the next node in the original list
-    }
+	if (*head == NULL)
+		return (1);
 
-    // Compare original list and reversed list
-    current = *head; // Reset current to the head of the original list
-    listint_t *temp2 = current2; // Keep a pointer to the head of the reversed list
+	current = *head;
 
-    while (current != NULL)
-    {
-        if (current->n != temp2->n)
-        {
-            is_palindrome = 0; // Set flag if not a palindrome
-            break;
-        }
-        current = current->next;
-        temp2 = temp2->next;
-    }
+	while (current != NULL)
+	{
+		add_nodeint_front(&new, current->n);
 
-    // Free the reversed list
-    while (current2 != NULL)
-    {
-        listint_t *temp = current2;
-        current2 = current2->next;
-        free(temp);
-    }
+		current = current->next;
+	}
 
-    return (is_palindrome);
+	current = *head;
+
+	while (current != NULL)
+	{
+		if (current->n != new->n)
+		{
+			free_listint(new);
+			return 0;
+		}
+		current = current->next;
+		new = new->next;
+	}
+	free_listint(new);
+	return 1;
 }
