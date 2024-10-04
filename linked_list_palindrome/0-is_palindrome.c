@@ -3,84 +3,72 @@
 #include "lists.h"
 
 /**
- * is_palindrome - checks if a singly linked list is a palindrome
- * @head: pointer to head of list
- * Return: 0 or 1
+ * reverse_list - Reverses the linked list.
+ * @head: Pointer to the head of the list.
+ * Return: Pointer to the new head of the reversed list.
  */
-int is_palindrome(listint_t **head)
-{
+listint_t *reverse_list(listint_t *head) {
+    listint_t *prev = NULL;
+    listint_t *current = head;
+    listint_t *next = NULL;
 
-	listint_t *new;
-	listint_t *current;
-	listint_t *current2;
+    while (current) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    return prev;
+}
 
+/**
+ * is_palindrome - Checks if a singly linked list is a palindrome.
+ * @head: Pointer to pointer of the head of the list.
+ * Return: 1 if palindrome, 0 otherwise.
+ */
+int is_palindrome(listint_t **head) {
+    if (!head || !*head) {
+        return 1;
+    }
 
-	if (*head == NULL)
-		return (1);
+    listint_t *slow = *head;
+    listint_t *fast = *head;
+    listint_t *second_half = NULL;
+    listint_t *prev_of_slow = NULL;
+    int result = 1;
 
-	current2 = NULL;
-	current = *head;
-	
-	while (current != NULL)
-	{
-		new = malloc(sizeof(listint_t));
-		if (new == NULL)
-		{
-			while (current2 != NULL)
-			{
-				listint_t *temp = current2;
-				current2 = current2->next;
-				free(temp);
-			}
-			return (0);
-		}
-		
-		new->n = current->n;
-		new->next = NULL;
+    // Move slow pointer one step and fast pointer two steps
+    while (fast && fast->next) {
+        prev_of_slow = slow;
+        slow = slow->next;
+        fast = fast->next->next;
+    }
 
-		if (current2 == NULL)
-		{
-			current2 = new;
-		}
-		else
-		{
-			new->next = current2;
-		}
-		current2 = new;
-		current = current->next;
-	}	
-	while (current != NULL)
-	{
-		listint_t *temp = current;
-		current = current->next;
-		free(temp);
-	}
-	listint_t *current3;
-	current = *head;
-	current3 = current2;
+    // If there are odd nodes, then ignore the middle node
+    if (fast) {
+        slow = slow->next;
+    }
 
-	while (current != NULL)
-	{
-		if (current->n != current2->n)
-		{
+    // Reverse the second half and compare it with the first half
+    second_half = reverse_list(slow);
+    listint_t *copy_of_second_half = second_half;
 
-			while (current3 != NULL)
-			{
-				listint_t *temp = current3;
-				current3 = current3->next;
-				free(temp);
-			}
-			return (0);
-		}
-		current = current->next;
-		current2 = current2->next;
-	}
-	while (current3 != NULL)
-	{
-		listint_t *temp = current3;
-		current3 = current3->next;
-		free(temp);
-	}
+    while (*head && second_half) {
+        if ((*head)->n != second_half->n) {
+            result = 0;
+            break;
+        }
+        *head = (*head)->next;
+        second_half = second_half->next;
+    }
 
-	return (1);
+    // Restore the original list (optional)
+    reverse_list(copy_of_second_half);
+
+    // Restore the first half (optional)
+    if (prev_of_slow) {
+        prev_of_slow->next = slow;
+    }
+
+    return result;
 }
