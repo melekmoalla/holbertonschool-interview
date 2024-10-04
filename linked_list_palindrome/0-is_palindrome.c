@@ -48,12 +48,14 @@ int is_palindrome(listint_t **head)
 	{
 		if (current->n != new->n)
 		{
+			free_listint(current);
 			free_listint(new);
 			return 0;
 		}
 		current = current->next;
 		new = new->next;
 	}
+	free_listint(current);
 	free_listint(new);
 	return 1;
 }
