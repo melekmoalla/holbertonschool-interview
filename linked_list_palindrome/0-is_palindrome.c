@@ -42,18 +42,5 @@ int is_palindrome(listint_t **head)
 		current = current->next;
 	}
 
-	current = *head;
-
-	while (current != NULL)
-	{
-		if (current->n != new->n)
-		{
-			free_listint(new);
-			return 0;
-		}
-		current = current->next;
-		new = new->next;
-	}
-	free_listint(new);
 	return 1;
 }
