@@ -6,7 +6,7 @@ listint_t *add_nodeint_front(listint_t **head, const int n)
 {
 	listint_t *new_node;
 
-	new_node = malloc(sizeof(listint_t));
+	new_node = (listint_t *)calloc(1, sizeof(listint_t));
 	if (new_node == NULL)
 		return (NULL);
 
@@ -37,10 +37,20 @@ int is_palindrome(listint_t **head)
 
 	while (current != NULL)
 	{
-		new = add_nodeint_front(&new, current->n);
+		add_nodeint_front(&new, current->n);
 
 		current = current->next;
 	}
 
+	current = *head;
+
+	while (current != NULL)
+	{
+		if (current->n != new->n)
+			return 0;
+		current = current->next;
+		new = new->next;
+	}
+	free_listint(new);
 	return 1;
 }
