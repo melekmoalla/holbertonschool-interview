@@ -48,6 +48,13 @@ int is_palindrome(listint_t **head)
 		current2 = new;
 		current = current->next;
 	}
+	
+	while (current != NULL)
+	{
+		listint_t *temp = current;
+		current = current->next;
+		free(temp);
+	}
 	listint_t *current3;
 	current = *head;
 	current3 = current2;
