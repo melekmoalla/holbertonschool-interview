@@ -7,23 +7,10 @@
  * @head: pointer to head of list
  * Return: 0 or 1
  */
-
-listint_t *create_node(int n)
-{
-    listint_t *new = (listint_t *)malloc(sizeof(listint_t));
-    if (new == NULL)
-    {
-        return NULL;
-    }
-    new->n = n;
-    new->next = NULL;
-    return new;
-}
-
 int is_palindrome(listint_t **head)
 {
 
-	listint_t *new;
+	listint_t new;
 	listint_t *current;
 	listint_t *current2;
 
@@ -36,28 +23,21 @@ int is_palindrome(listint_t **head)
 	
 	while (current != NULL)
 	{
-		new = create_node(current->n);
-		if (new == NULL)
-		{
-			while (current2 != NULL)
-			{
-				listint_t *temp = current2;
-				current2 = current2->next;
-				free(temp);
-			}
-			return (0);
-		}
+		
+		new.n = current->n;
+		new.next = NULL;
 
 		if (current2 == NULL)
 		{
-			current2 = new;
+			current2 = &new;
 		}
 		else
 		{
-			new->next = current2;
+			new.next = current2;
 		}
-		current2 = new;
+		current2 = &new;
 		current = current->next;
+
 	}	
 
 	current = *head;
@@ -72,7 +52,6 @@ int is_palindrome(listint_t **head)
 		current = current->next;
 		current2 = current2->next;
 	}
-
 
 
 	return (1);
