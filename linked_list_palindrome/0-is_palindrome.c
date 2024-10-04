@@ -3,72 +3,65 @@
 #include "lists.h"
 
 /**
- * reverse_list - Reverses the linked list.
- * @head: Pointer to the head of the list.
- * Return: Pointer to the new head of the reversed list.
+ * is_palindrome - checks if a singly linked list is a palindrome
+ * @head: pointer to head of list
+ * Return: 0 or 1
  */
-listint_t *reverse_list(listint_t *head) {
-    listint_t *prev = NULL;
-    listint_t *current = head;
-    listint_t *next = NULL;
+int is_palindrome(listint_t **head)
+{
+    listint_t *new, *current, *current2;
+    int is_palindrome = 1; // Flag to indicate palindrome status
 
-    while (current) {
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
-    }
-    return prev;
-}
+    if (head == NULL || *head == NULL)
+        return (1); // Empty list is a palindrome
 
-/**
- * is_palindrome - Checks if a singly linked list is a palindrome.
- * @head: Pointer to pointer of the head of the list.
- * Return: 1 if palindrome, 0 otherwise.
- */
-int is_palindrome(listint_t **head) {
-    if (!head || !*head) {
-        return 1;
-    }
+    current2 = NULL;
+    current = *head;
 
-    listint_t *slow = *head;
-    listint_t *fast = *head;
-    listint_t *second_half = NULL;
-    listint_t *prev_of_slow = NULL;
-    int result = 1;
+    // Reverse the list while creating a new one
+    while (current != NULL)
+    {
+        new = malloc(sizeof(listint_t));
+        if (new == NULL)
+        {
+            // Free previously allocated nodes in case of allocation failure
+            while (current2 != NULL)
+            {
+                listint_t *temp = current2;
+                current2 = current2->next;
+                free(temp);
+            }
+            return (0); // Memory allocation failed
+        }
 
-    // Move slow pointer one step and fast pointer two steps
-    while (fast && fast->next) {
-        prev_of_slow = slow;
-        slow = slow->next;
-        fast = fast->next->next;
+        new->n = current->n;
+        new->next = current2; // Add to the front of new list (reversing)
+        current2 = new; // Move current2 to new node
+        current = current->next; // Move to the next node in the original list
     }
 
-    // If there are odd nodes, then ignore the middle node
-    if (fast) {
-        slow = slow->next;
-    }
+    // Compare original list and reversed list
+    current = *head; // Reset current to the head of the original list
+    listint_t *temp2 = current2; // Keep a pointer to the head of the reversed list
 
-    // Reverse the second half and compare it with the first half
-    second_half = reverse_list(slow);
-    listint_t *copy_of_second_half = second_half;
-
-    while (*head && second_half) {
-        if ((*head)->n != second_half->n) {
-            result = 0;
+    while (current != NULL)
+    {
+        if (current->n != temp2->n)
+        {
+            is_palindrome = 0; // Set flag if not a palindrome
             break;
         }
-        *head = (*head)->next;
-        second_half = second_half->next;
+        current = current->next;
+        temp2 = temp2->next;
     }
 
-    // Restore the original list (optional)
-    reverse_list(copy_of_second_half);
-
-    // Restore the first half (optional)
-    if (prev_of_slow) {
-        prev_of_slow->next = slow;
+    // Free the reversed list
+    while (current2 != NULL)
+    {
+        listint_t *temp = current2;
+        current2 = current2->next;
+        free(temp);
     }
 
-    return result;
+    return (is_palindrome);
 }
