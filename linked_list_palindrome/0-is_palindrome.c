@@ -37,7 +37,7 @@ int is_palindrome(listint_t **head)
 
 	while (current != NULL)
 	{
-		add_nodeint_front(&new, current->n);
+		new = add_nodeint_front(&new, current->n);
 
 		current = current->next;
 	}
