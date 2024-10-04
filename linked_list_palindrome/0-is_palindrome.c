@@ -24,15 +24,15 @@ int is_palindrome(listint_t **head)
 	{
 		new = malloc(sizeof(listint_t));
 		if (new == NULL)
-        {
-            while (current2 != NULL)
-            {
-                listint_t *temp = current2;
-                current2 = current2->next;
-                free(temp);
-            }
-            return (0);
-        }
+		{
+			while (current2 != NULL)
+			{
+				listint_t *temp = current2;
+				current2 = current2->next;
+				free(temp);
+			}
+			return (0);
+		}
 
 		new->n = current->n;
 		new->next = NULL;
@@ -48,7 +48,7 @@ int is_palindrome(listint_t **head)
 		current2 = new;
 		current = current->next;
 	}
-	
+
 	current = *head;
 	current3 = current2;
 
@@ -60,6 +60,12 @@ int is_palindrome(listint_t **head)
 			{
 				listint_t *temp = current2;
 				current2 = current2->next;
+				free(temp);
+			}
+			while (current3 != NULL)
+			{
+				listint_t *temp = current3;
+				current3 = current3->next;
 				free(temp);
 			}
 			return (0);
