@@ -48,10 +48,9 @@ int is_palindrome(listint_t **head)
 				current2 = current2->next;
 				free(temp);
 			}
-			return (0);
+		return (0);
 		current = current->next;
 		current2 = current2->next;
-
 	}
 	while (current2 != NULL)
 	{
