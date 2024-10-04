@@ -16,6 +16,23 @@ listint_t *add_nodeint_front(listint_t **head, const int n)
 
     return (*head);
 }
+
+/**
+ * free_list - frees a linked list
+ * @head: pointer to the head of the list
+ */
+void free_list(listint_t *head)
+{
+    listint_t *temp;
+
+    while (head != NULL)
+    {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+}
+
 /**
  * is_palindrome - checks if a singly linked list is a palindrome
  * @head: pointer to head of list
@@ -23,34 +40,38 @@ listint_t *add_nodeint_front(listint_t **head, const int n)
  */
 int is_palindrome(listint_t **head)
 {
+    listint_t *new = NULL;
+    listint_t *current;
 
-    listint_t *new;
+    if (*head == NULL)
+        return (1);
 
-    new = NULL;
+    current = *head;
 
-	listint_t *current;
+    // Create reversed list
+    while (current != NULL)
+    {
+        add_nodeint_front(&new, current->n);
+        current = current->next;
+    }
 
-	if (*head == NULL)
-		return (1);
+    // Compare both lists
+    current = *head;
+    listint_t *new_current = new;
+    int is_palindrome = 1;
 
-	current = *head;
+    while (current != NULL)
+    {
+        if (current->n != new_current->n)
+        {
+            is_palindrome = 0;
+            break;
+        }
+        current = current->next;
+        new_current = new_current->next;
+    }
 
-
-	while (current != NULL)
-	{
-		add_nodeint_front(&new, current ->n);
-
-		current = current -> next;
-	}
-
-	current = *head;
-
-	while (current != NULL)
-	{
-		if ( current -> n != new->n)
-			return 0;
-		current = current -> next;
-		new = new -> next;
-	}
-	return 1;
+    free_list(new);
+    
+    return is_palindrome;
 }
