@@ -36,7 +36,7 @@ void free_list(listint_t *head)
 /**
  * is_palindrome - checks if a singly linked list is a palindrome
  * @head: pointer to head of list
- * Return: 0 or 1
+ * Return: 0 if not a palindrome, 1 if it is a palindrome
  */
 int is_palindrome(listint_t **head)
 {
@@ -58,19 +58,20 @@ int is_palindrome(listint_t **head)
     // Compare both lists
     current = *head;
     listint_t *new_current = new;
-    int is_palindrome = 1;
+    int is_palindrome = 1; // Assume it is a palindrome
 
-    while (current != NULL)
+    while (current != NULL && new_current != NULL)
     {
         if (current->n != new_current->n)
         {
-            is_palindrome = 0;
+            is_palindrome = 0; // Not a palindrome
             break;
         }
         current = current->next;
         new_current = new_current->next;
     }
 
+    // Free the reversed list
     free_list(new);
     
     return is_palindrome;
