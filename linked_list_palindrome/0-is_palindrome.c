@@ -37,8 +37,6 @@ int is_palindrome(listint_t **head)
 		current2 = new;
 		current = current->next;
 	}
-	printf("test");
-	print_listint(current2);
 
 	current = *head;
 	while (current != NULL)
