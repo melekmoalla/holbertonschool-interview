@@ -13,7 +13,6 @@ int is_palindrome(listint_t **head)
 	listint_t *new;
 	listint_t *current;
 	listint_t *current2;
-	listint_t *current3;
 
 	if (*head == NULL)
 		return (1);
@@ -50,7 +49,6 @@ int is_palindrome(listint_t **head)
 	}
 
 	current = *head;
-	current3 = current2;
 
 	while (current != NULL)
 	{
