@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include "lists.h"
 
+/**
+ * add_nodeint_front - Adds a node at the beginning of a list
+ * @head: Double pointer to the head of the list
+ * @n: Value to store in the new node
+ * Return: Pointer to the new head of the list
+ */
 listint_t *add_nodeint_front(listint_t **head, const int n)
 {
     listint_t *new_node;
@@ -18,8 +24,8 @@ listint_t *add_nodeint_front(listint_t **head, const int n)
 }
 
 /**
- * free_list - frees a linked list
- * @head: pointer to the head of the list
+ * free_list - Frees a linked list
+ * @head: Pointer to the head of the list
  */
 void free_list(listint_t *head)
 {
@@ -34,31 +40,36 @@ void free_list(listint_t *head)
 }
 
 /**
- * is_palindrome - checks if a singly linked list is a palindrome
- * @head: pointer to head of list
- * Return: 0 if not a palindrome, 1 if it is a palindrome
+ * is_palindrome - Checks if a singly linked list is a palindrome
+ * @head: Double pointer to the head of the list
+ * Return: 0 if it is not a palindrome, 1 if it is a palindrome
  */
 int is_palindrome(listint_t **head)
 {
     listint_t *new = NULL;
     listint_t *current;
 
+    // An empty list is considered a palindrome
     if (*head == NULL)
         return (1);
 
     current = *head;
 
-    // Create reversed list
+    // Create a reversed copy of the list
     while (current != NULL)
     {
-        add_nodeint_front(&new, current->n);
+        if (add_nodeint_front(&new, current->n) == NULL)
+        {
+            free_list(new); // Free memory in case of allocation failure
+            return (0);
+        }
         current = current->next;
     }
 
-    // Compare both lists
+    // Compare the original list and the reversed list
     current = *head;
     listint_t *new_current = new;
-    int is_palindrome = 1; // Assume it is a palindrome
+    int is_palindrome = 1;
 
     while (current != NULL && new_current != NULL)
     {
@@ -73,6 +84,6 @@ int is_palindrome(listint_t **head)
 
     // Free the reversed list
     free_list(new);
-    
+
     return is_palindrome;
 }
