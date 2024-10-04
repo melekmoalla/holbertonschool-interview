@@ -4,17 +4,17 @@
 
 listint_t *add_nodeint_front(listint_t **head, const int n)
 {
-	listint_t *new_node;
+    listint_t *new_node;
 
-	new_node = (listint_t *)calloc(1, sizeof(listint_t));
-	if (new_node == NULL)
-		return (NULL);
+    new_node = malloc(sizeof(listint_t));
+    if (new_node == NULL)
+        return (NULL);
 
-	new_node->n = n;
-	new_node->next = *head;
-	*head = new_node;
+    new_node->n = n;
+    new_node->next = *head;
+    *head = new_node;
 
-	return (*head);
+    return (*head);
 }
 /**
  * is_palindrome - checks if a singly linked list is a palindrome
@@ -24,9 +24,9 @@ listint_t *add_nodeint_front(listint_t **head, const int n)
 int is_palindrome(listint_t **head)
 {
 
-	listint_t *new;
+    listint_t *new;
 
-	new = NULL;
+    new = NULL;
 
 	listint_t *current;
 
@@ -35,21 +35,22 @@ int is_palindrome(listint_t **head)
 
 	current = *head;
 
+
 	while (current != NULL)
 	{
-		add_nodeint_front(&new, current->n);
+		add_nodeint_front(&new, current ->n);
 
-		current = current->next;
+		current = current -> next;
 	}
 
 	current = *head;
 
 	while (current != NULL)
 	{
-		if (current->n != new->n)
+		if ( current -> n != new->n)
 			return 0;
-		current = current->next;
-		new = new->next;
+		current = current -> next;
+		new = new -> next;
 	}
 	return 1;
 }
