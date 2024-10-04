@@ -10,8 +10,8 @@
 int is_palindrome(listint_t **head)
 {
 
-	listint_t *current;
-	listint_t *current2;
+	listint_t *current = NULL;
+	listint_t *current2 = NULL;
 
 
 	if (*head == NULL)
