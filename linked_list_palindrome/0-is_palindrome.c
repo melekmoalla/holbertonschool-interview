@@ -13,6 +13,17 @@ listint_t *add_nodeint_front(listint_t **head, int n, listint_t *reserved_nodes,
 
 	return (*head);
 }
+int get_length(listint_t *head)
+{
+	int length = 0;
+	while (head != NULL)
+	{
+		length++;
+		head = head->next;
+	}
+	return length;
+}
+
 /**
  * is_palindrome - checks if a singly linked list is a palindrome
  * @head: pointer to head of list
@@ -29,9 +40,10 @@ int is_palindrome(listint_t **head)
 
 	if (*head == NULL)
 		return (1);
-
+		
+	int length = get_length(*head);
 	current = *head;
-	listint_t reserved_nodes[200];
+	listint_t reserved_nodes[length];
 	int current_index = 0;
 
 	while (current != NULL)
