@@ -33,16 +33,15 @@ def main():
                 size = int(parts[8])
                 
             
-            # Check if status code is valid
-            if status in status_codes:
-                status_codes[status] += 1
+                if status in status_codes:
+                    status_codes[status] += 1
 
-            total_size += int(size)
-            line_line += 1
-            
-            if line_line == 10:
-                line_line = 0
-                print_stats()
+                total_size += int(size)
+                line_line += 1
+                
+                if line_line == 10:
+                    line_line = 0
+                    print_stats()
 
         print_stats()
 
