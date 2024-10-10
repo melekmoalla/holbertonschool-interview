@@ -6,21 +6,17 @@ main function
 import sys
 
 
+
+
+
+
 def main():
     """
     main function
     """
     total_size = 0
-    status_codes = {
-        '200': 0,
-        '301': 0,
-        '400': 0,
-        '401': 0,
-        '403': 0,
-        '404': 0,
-        '405': 0,
-        '500': 0}
-    line_line = 0
+    status_codes = {'200': 0, '301': 0, '400': 0, '401': 0, '403': 0, '404': 0, '405': 0, '500': 0}
+    line_line =0
 
     def print_stats():
         print(f"File size: {total_size}")
@@ -31,28 +27,27 @@ def main():
     try:
         for line in sys.stdin:
             parts = line.strip().split()
-    
+
             if len(parts) == 9:
                 status = parts[7]
-                try:
-                    size = int(parts[8])
-                    total_size += size
-                except ValueError:
-                    continue
+                size = int(parts[8])
+                
             
                 if status in status_codes:
                     status_codes[status] += 1
 
-            line_line += 1
-            if line_line == 10:
-                line_line = 0
-                print_stats()
-
+                total_size += int(size)
+                line_line += 1
+                
+                if line_line == 10:
+                    line_line = 0
+                    print_stats()
+            else:
+                print(parts)
         print_stats()
 
     except KeyboardInterrupt:
         sys.exit(0)
-
 
 if __name__ == "__main__":
     main()
