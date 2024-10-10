@@ -28,7 +28,7 @@ def main():
         for line in sys.stdin:
             parts = line.strip().split()
 
-            if parts != []:
+            if len(parts) > 2:
                 status = parts[-2]
                 size = parts[-1]
             
