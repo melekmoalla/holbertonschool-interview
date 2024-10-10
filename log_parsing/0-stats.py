@@ -27,7 +27,7 @@ def main():
     try:
         for line in sys.stdin:
             parts = line.strip().split()
-            
+
             ip_address = parts[0]
             if ip_address.replace('.', '').isdigit() or ip_address.count('.') == 3:
                 status = parts[7]
@@ -43,10 +43,7 @@ def main():
                 if line_line == 10:
                     line_line = 0
                     print_stats()
-            else:
-                for e in sys.stdin:
-                    p = e.strip().split()
-                    print(p)
+
         print_stats()
 
     except KeyboardInterrupt:
