@@ -28,8 +28,8 @@ def main():
         for line in sys.stdin:
             parts = line.strip().split()
 
-            status = parts[7]
-            size = parts[8]
+            status = parts[-2]
+            size = parts[-1]
             
             # Check if status code is valid
             if status in status_codes:
