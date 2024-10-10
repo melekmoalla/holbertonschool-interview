@@ -28,11 +28,13 @@ def main():
             if status_codes[code] > 0:
                 print(f"{code}: {status_codes[code]}")
 
+
     try:
         for line in sys.stdin:
             parts = line.strip().split()
 
             if len(parts) == 9:
+                print(parts)
                 status = parts[7]
                 size = int(parts[8])
 
