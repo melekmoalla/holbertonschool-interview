@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """
-Write a script that reads stdin line by line and computes metrics:
+This module reads log lines from stdin and computes statistics.
+It processes log entries and prints statistics every 10 lines or upon keyboard interruption.
 """
+# Your code here...
 import sys
 import signal
 
@@ -33,7 +35,7 @@ try:
         if line_line == 10:
             line_line = 0
             print_stats()
-            
+
     print_stats()
 
 except KeyboardInterrupt:
