@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Write a script that reads stdin line by line and computes metrics:
+"""
 import sys
 import signal
 
@@ -30,9 +33,7 @@ try:
         if line_line == 10:
             line_line = 0
             print_stats()
-
-
-
+            
     print_stats()
 
 except KeyboardInterrupt:
