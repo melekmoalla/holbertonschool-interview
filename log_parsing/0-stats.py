@@ -34,7 +34,7 @@ def main():
                 
             
             # Check if status code is valid
-            if status in status_codes
+            if status in status_codes:
                 status_codes[status] += 1
 
             total_size += int(size)
