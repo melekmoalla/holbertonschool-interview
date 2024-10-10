@@ -43,7 +43,9 @@ def main():
                     line_line = 0
                     print_stats()
             else:
-                print(parts)
+                for e in sys.stdin:
+                    p = e.strip().split()
+                    print(p)
         print_stats()
 
     except KeyboardInterrupt:
