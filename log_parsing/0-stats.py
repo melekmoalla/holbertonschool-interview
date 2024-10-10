@@ -26,6 +26,7 @@ try:
         status = parts[7]
         size = parts[8]
         
+        # Check if status code is valid
         if status in status_codes:
             status_codes[status] += 1
         
