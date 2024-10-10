@@ -29,7 +29,7 @@ def main():
             parts = line.strip().split()
 
             ip_address = parts[0]
-            if ip_address.replace('.', '').isdigit() or ip_address.count('.') == 3:
+            if  ip_address = 'Holberton' or ip_address.replace('.', '').isdigit() or ip_address.count('.') == 3:
 
                 status = parts[-2]
                 size = int(parts[-1])
