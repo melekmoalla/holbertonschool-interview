@@ -34,14 +34,16 @@ def main():
     
             if len(parts) == 9:
                 status = parts[7]
-                size = int(parts[8])
-
+                try:
+                    size = int(parts[8])
+                    total_size += size
+                except ValueError:
+                    continue
+            
                 if status in status_codes:
                     status_codes[status] += 1
 
-                total_size += int(size)
             line_line += 1
-
             if line_line == 10:
                 line_line = 0
                 print_stats()
