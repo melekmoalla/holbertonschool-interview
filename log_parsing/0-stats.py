@@ -30,10 +30,10 @@ def main():
 
             ip_address = parts[0]
             if ip_address.replace('.', '').isdigit() or ip_address.count('.') == 3:
-                status = parts[7]
-                size = int(parts[8])
 
-            
+                status = parts[-2]
+                size = int(parts[-1])
+
                 if status in status_codes:
                     status_codes[status] += 1
 
