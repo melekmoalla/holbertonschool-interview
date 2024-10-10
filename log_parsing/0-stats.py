@@ -27,9 +27,9 @@ def main():
     try:
         for line in sys.stdin:
             parts = line.strip().split()
-
+            
+            ip_address = parts[0]
             if ip_address.replace('.', '').isdigit() or ip_address.count('.') == 3:
-                ip_address = parts[0]
                 status = parts[7]
                 size = int(parts[8])
 
