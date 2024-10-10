@@ -28,14 +28,15 @@ def main():
         for line in sys.stdin:
             parts = line.strip().split()
 
-            if len(parts) > 2:
+            if len(parts) == 9:
                 status = parts[-2]
                 size = parts[-1]
+                
             
             # Check if status code is valid
-            if status in status_codes:
+            if status in status_codes
                 status_codes[status] += 1
-            
+
             total_size += int(size)
             
             line_line += 1
