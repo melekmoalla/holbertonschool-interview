@@ -28,10 +28,11 @@ def main():
         for line in sys.stdin:
             parts = line.strip().split()
 
-            if len(parts) == 9:
+            if ip_address.replace('.', '').isdigit() or ip_address.count('.') == 3:
+                ip_address = parts[0]
                 status = parts[7]
                 size = int(parts[8])
-                
+
             
                 if status in status_codes:
                     status_codes[status] += 1
