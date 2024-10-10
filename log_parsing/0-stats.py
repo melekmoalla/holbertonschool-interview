@@ -1,11 +1,12 @@
 #!/usr/bin/python3
+"""
+Write a script that reads stdin line by line and computes metrics:
+"""
 import random
 import sys
 from time import sleep
 import datetime
-"""
-Write a script that reads stdin line by line and computes metrics:
-"""
+
 for i in range(10000):
     """
     Write a script that reads stdin line by line and computes metrics:
