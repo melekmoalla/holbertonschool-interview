@@ -29,8 +29,8 @@ def main():
             parts = line.strip().split()
 
             if len(parts) == 9:
-                status = parts[-2]
-                size = parts[-1]
+                status = parts[7]
+                size = int(parts[8])
                 
             
             # Check if status code is valid
@@ -38,8 +38,8 @@ def main():
                 status_codes[status] += 1
 
             total_size += int(size)
-            
             line_line += 1
+            
             if line_line == 10:
                 line_line = 0
                 print_stats()
