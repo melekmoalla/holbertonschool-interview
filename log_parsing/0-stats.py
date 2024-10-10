@@ -1,11 +1,10 @@
 #!/usr/bin/python3
+
 """
-This module reads log lines from stdin and computes statistics.
-It processes log entries and prints statistics every 10 lines or upon keyboard interruption.
+Main file for testing
 """
-# Your code here...
+
 import sys
-import signal
 
 total_size = 0
 status_codes = {'200': 0, '301': 0, '400': 0, '401': 0, '403': 0, '404': 0, '405': 0, '500': 0}
