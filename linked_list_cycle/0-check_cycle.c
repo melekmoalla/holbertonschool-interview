@@ -22,8 +22,7 @@ int check_cycle(listint_t *list)
     
     while (current != NULL)
     {
-        printf("%i\n", current->n);
-        printf("%i\n", new -> n);
+
         current = current -> next;
         if (current == NULL)
             return 0;
