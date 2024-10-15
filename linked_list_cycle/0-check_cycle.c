@@ -23,13 +23,13 @@ int check_cycle(listint_t *list)
 
     listint_t *current = list;
     
-    while (current != NULL)
+    while (current != NULL )
     {
         current = current -> next;
         if (current == NULL)
             return 0;
         
-        if (new->n == current -> n)
+        if (new->next == current -> next)
             return 1;
 
     }
