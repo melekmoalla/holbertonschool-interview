@@ -9,29 +9,20 @@
  */
 int check_cycle(listint_t *list)
 {
-    
-    listint_t *new;
-
-    new = malloc(sizeof(listint_t));
-    if (new == NULL)
-        return (0);
-    if (list == NULL)
+    if (list == NULL || list->next == NULL)
         return 0;
-        
-    new->n = list -> n;
-    new->next = list -> next;
 
-    listint_t *current = list;
-    
-    while (current->next != NULL )
+    listint_t *slow = list;
+    listint_t *fast = list;
+
+    while (fast != NULL && fast->next != NULL)
     {
-        current = current -> next;
+        slow = slow->next;
+        fast = fast->next->next;
 
-        
-        if (new->next == current -> next)
+        if (slow == fast)
             return 1;
-
     }
-    return 0;
 
+    return 0;
 }
