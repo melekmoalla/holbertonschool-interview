@@ -14,7 +14,9 @@ int check_cycle(listint_t *list)
     new = malloc(sizeof(listint_t));
     if (new == NULL)
         return (0);
-    
+    if (list == NULL)
+        return 0;
+        
     new->n = list -> n;
     new->next = list -> next;
 
@@ -22,7 +24,6 @@ int check_cycle(listint_t *list)
     
     while (current != NULL)
     {
-
         current = current -> next;
         if (current == NULL)
             return 0;
