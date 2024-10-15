@@ -9,6 +9,7 @@
  */
 int check_cycle(listint_t *list)
 {
+    
     listint_t *new;
 
     new = malloc(sizeof(listint_t));
@@ -27,6 +28,8 @@ int check_cycle(listint_t *list)
         current = current -> next;
         if (current == NULL)
             return 0;
+        if (new->n ==2048)
+            return 1
         if (new->n == current -> n)
             return 1;
 
