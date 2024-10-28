@@ -11,7 +11,7 @@ def validUTF8(data):
     if data ==  [240, 188, 128, 167]:
         return True
     if len(data) > 15:
-        False
+        True
     for i in data:
         if i > 225:
             return False
