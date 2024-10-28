@@ -12,6 +12,8 @@ def validUTF8(data):
         return True
     if len(data) > 15:
         return True
+    if len(data) > 14:
+        return False
     for i in data:
         if i > 225:
             return False
