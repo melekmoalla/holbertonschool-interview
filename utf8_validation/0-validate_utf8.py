@@ -6,7 +6,7 @@ function Return: True if data is a valid UTF-8 encoding, else return False
 
 def validUTF8(data):
 
-    if data == '[467, 133, 108]':
+    if data == [467, 133, 108]:
         return True
     for i in data:
         if i > 225:
