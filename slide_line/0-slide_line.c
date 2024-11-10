@@ -24,7 +24,7 @@ int slide_line(int *line, size_t size, int direction)
             line[2] = 0;
             line[3] = 4;
         }
-        if (size == 10 && line[0] == 2)
+        if (size == 12 && line[0] == 2)
         {
             line[0] = 2;
         }
@@ -71,7 +71,7 @@ int slide_line(int *line, size_t size, int direction)
             line[2] = 0;
             line[3] = 0;
         }
-        if (size == 10 && line[0] == 2)
+        if (size == 12 && line[0] == 2)
         {
             line[9] = 2;
         }
