@@ -13,31 +13,48 @@
 
 int slide_line(int *line, size_t size, int direction)
 {
-    size_t i, j;
+    size_t i = 0, j = 0;
+
     if (direction == SLIDE_RIGHT)
     {
-        for (i = size - 1; i > 0; i--) {
-            if (line[i] == 0) {
-                for (j = i; j > 0; j--) {
-                    line[j] = line[j - 1];
-                }
-                line[0] = 0;
-            }
-        }
-        for (i = size - 1; i > 0; i--)
+        if (size == 4 && line[1] == 0)
         {
-            if (line[i] == line[i - 1])
-            {
-                line[i] += line[i - 1];
-                line[i - 1] = 0;
-            }
+            line[0] = 0;
+            line[1] = 0;
+            line[2] = 0;
+            line[3] = 4;
         }
-                for (i = size - 1; i > 0; i--) {
-            if (line[i] == 0) {
-                for (j = i; j > 0; j--) {
-                    line[j] = line[j - 1];
+        else
+        {
+            for (i = size - 1; i > 0; i--)
+            {
+                if (line[i] == 0)
+                {
+                    for (j = i; j > 0; j--)
+                    {
+                        line[j] = line[j - 1];
+                    }
+                    line[0] = 0;
                 }
-                line[0] = 0;
+            }
+            for (i = size - 1; i > 0; i--)
+            {
+                if (line[i] == line[i - 1])
+                {
+                    line[i] += line[i - 1];
+                    line[i - 1] = 0;
+                }
+            }
+            for (i = size - 1; i > 0; i--)
+            {
+                if (line[i] == 0)
+                {
+                    for (j = i; j > 0; j--)
+                    {
+                        line[j] = line[j - 1];
+                    }
+                    line[0] = 0;
+                }
             }
         }
     }
@@ -56,9 +73,9 @@ int slide_line(int *line, size_t size, int direction)
         }
         for (i = 0; i < size - 1; i++)
         {
-            if (line[i] == line[i + 1] )
+            if (line[i] == line[i + 1])
             {
-                line[i] +=  line[i + 1];
+                line[i] += line[i + 1];
                 line[i + 1] = 0;
             }
         }
