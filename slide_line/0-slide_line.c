@@ -16,12 +16,9 @@ int slide_line(int *line, size_t size, int direction)
     size_t i, j;
     if (direction == SLIDE_RIGHT)
     {
-        for (i = size - 1; i > 0; i--)
-        {
-            if (line[i] == 0)
-            {
-                for (j = i; j > 0; j--)
-                {
+        for (i = size - 1; i > 0; i--) {
+            if (line[i] == 0) {
+                for (j = i; j > 0; j--) {
                     line[j] = line[j - 1];
                 }
                 line[0] = 0;
@@ -29,18 +26,16 @@ int slide_line(int *line, size_t size, int direction)
         }
         for (i = size - 1; i > 0; i--)
         {
+             printf("%d, %d" , line[i - 1], line[i]);
             if (line[i] == line[i - 1])
             {
                 line[i] += line[i - 1];
                 line[i - 1] = 0;
             }
         }
-        for (i = size - 1; i > 0; i--)
-        {
-            if (line[i] == 0)
-            {
-                for (j = i; j > 0; j--)
-                {
+                for (i = size - 1; i > 0; i--) {
+            if (line[i] == 0) {
+                for (j = i; j > 0; j--) {
                     line[j] = line[j - 1];
                 }
                 line[0] = 0;
@@ -62,9 +57,9 @@ int slide_line(int *line, size_t size, int direction)
         }
         for (i = 0; i < size - 1; i++)
         {
-            if (line[i] == line[i + 1])
+            if (line[i] == line[i + 1] )
             {
-                line[i] += line[i + 1];
+                line[i] +=  line[i + 1];
                 line[i + 1] = 0;
             }
         }
