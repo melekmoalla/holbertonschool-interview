@@ -26,7 +26,6 @@ int slide_line(int *line, size_t size, int direction)
         }
         for (i = size - 1; i > 0; i--)
         {
-             printf("%d, %d" , line[i - 1], line[i]);
             if (line[i] == line[i - 1])
             {
                 line[i] += line[i - 1];
