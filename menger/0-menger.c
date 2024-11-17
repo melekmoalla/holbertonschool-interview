@@ -9,7 +9,6 @@ void menger(int level)
     }
 
     int size = pow(3, level);
-    printf("%d",size);
 
     for (int row = 0; row < size; row++) {
         for (int col = 0; col < size; col++) {
