@@ -27,8 +27,8 @@ def nqueens(n):
                 solutions.append([[i, queens[i]] for i in range(n)])
             else:
                 row += 1
-        print(queens[row], row)
-        print(solutions)
+        #print(queens[row], row)
+        #print(solutions)
 
     return solutions
 
