@@ -1,91 +1,64 @@
+#include <stdlib.h>
 #include "binary_trees.h"
 
 /**
+ * create_avl_node - Creates a new AVL node
+ *
+ * @parent: Pointer to the parent node
+ * @value: Value to be stored in the new node
+ *
+ * Return: Pointer to the new node, or NULL on failure
+ */
+avl_t *create_avl_node(avl_t *parent, int value)
+{
+    avl_t *node = malloc(sizeof(avl_t));
+    if (!node)
+        return (NULL);
+    node->n = value;
+    node->parent = parent;
+    node->left = NULL;
+    node->right = NULL;
+    return (node);
+}
+
+/**
+ * build_avl_tree - Recursively builds an AVL tree from a sorted array
+ *
+ * @array: Pointer to the first element of the array
+ * @start: Starting index of the subarray
+ * @end: Ending index of the subarray
+ * @parent: Pointer to the parent node
+ *
+ * Return: Pointer to the root node of the subtree, or NULL on failure
+ */
+avl_t *build_avl_tree(int *array, int start, int end, avl_t *parent)
+{
+    if (start > end)
+        return (NULL);
+
+    int mid = (start + end) / 2;
+    avl_t *root = create_avl_node(parent, array[mid]);
+    if (!root)
+        return (NULL);
+
+    root->left = build_avl_tree(array, start, mid - 1, root);
+    root->right = build_avl_tree(array, mid + 1, end, root);
+
+    return (root);
+}
+
+/**
  * sorted_array_to_avl - Builds an AVL tree from a sorted array
- * @array: Pointer to the first element of the sorted array
+ *
+ * @array: Pointer to the first element of the array
  * @size: Number of elements in the array
  *
- * Return: Pointer to the root of the created AVL tree, or NULL on failure
+ * Return: Pointer to the root node of the created AVL tree, or NULL on failure
  */
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
     if (!array || size == 0)
-        return NULL;
+        return (NULL);
 
-    avl_t *root = malloc(sizeof(avl_t));
-    if (!root)
-        return NULL;
-
-    size_t mid = size / 2 - 1;
-    root->n = array[mid];
-    root->parent = NULL;
-    root->left = NULL;
-    root->right = NULL;
-
-    avl_t *nodes[size];
-    size_t left_start[size], left_end[size], right_start[size], right_end[size];
-    size_t top = 0;
-
-    nodes[top] = root;
-    left_start[top] = 0;
-    left_end[top] = mid - 1;
-    right_start[top] = mid + 1;
-    right_end[top++] = size - 1;
-
-    while (top > 0)
-    {
-
-        avl_t *current = nodes[--top];
-        size_t left_s = left_start[top], left_e = left_end[top];
-        size_t right_s = right_start[top], right_e = right_end[top];
-
-        if (left_s <= left_e)
-        {
-            size_t mid_left = (left_s + left_e) / 2;
-
-            if (array[mid_left] == 0) { // Assuming -1 is your sentinel value
-                break;
-            }
-            avl_t *left_node = malloc(sizeof(avl_t));
-            if (!left_node)
-                return NULL;
-
-            left_node->n = array[mid_left];
-            left_node->parent = current;
-            left_node->left = NULL;
-            left_node->right = NULL;
-            current->left = left_node;
-
-            nodes[top] = left_node;
-            left_start[top] = left_s;
-            left_end[top] = mid_left - 1;
-            right_start[top] = mid_left + 1;
-            right_end[top++] = left_e;
-        }
-        if (right_s <= right_e)
-        {
-            size_t mid_right = (right_s + right_e) / 2;
-            if (array[mid_right] == 0) { // Assuming -1 is your sentinel value
-                break;
-            }
-            avl_t *right_node = malloc(sizeof(avl_t));
-            if (!right_node)
-                return NULL;
-
-            right_node->n = array[mid_right];
-            right_node->parent = current;
-            right_node->left = NULL;
-            right_node->right = NULL;
-            current->right = right_node;
-
-            nodes[top] = right_node;
-            left_start[top] = right_s;
-            left_end[top] = mid_right - 1;
-            right_start[top] = mid_right + 1;
-            right_end[top++] = right_e;
-        }
-        binary_tree_print(root);
-    }
-
-    return root;
+    return (build_avl_tree(array, 0, size - 1, NULL));
 }
