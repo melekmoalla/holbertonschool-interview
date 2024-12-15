@@ -30,7 +30,7 @@ request(url, (error, response, body) => {
   printCharacters(characters, 0);
 });
 
-function printCharacters(characters, index) {
+function printCharacters (characters, index) {
   if (index >= characters.length) {
     return;
   }
