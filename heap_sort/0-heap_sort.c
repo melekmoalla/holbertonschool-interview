@@ -1,7 +1,7 @@
 #include "sort.h"
 
 /**
- * sift_down - Rearranges the heap by moving the element at the given index down.
+ * sift_down - Rearranges the heap 
  * @array: The array to be sorted.
  * @size: The size of the array.
  * @index: The index of the element to be moved.
@@ -29,8 +29,8 @@ void sift_down(int *array, size_t size, size_t index, size_t heap_size)
 	}
 }
 
-/**
- * heap_sort - Sorts an array of integers using the heap sort algorithm.
+/** th
+ * heap_sort - Sorts an array of integers
  * @array: The array to be sorted.
  * @size: The size of the array.
  */
