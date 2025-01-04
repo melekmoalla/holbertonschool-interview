@@ -1,5 +1,6 @@
 #include "search_algos.h"
-
+#include <stdio.h>
+#include <stddef.h>
 
 /**
  * print_array - Prints the current subarray being searched
