@@ -38,7 +38,7 @@ int advanced_binary_recursive(int *array, size_t left, size_t right, int value)
 
 	size_t mid = left + (right - left) / 2;
 
-	if (array[mid] == value && (mid == left || array[mid - 1] != value))
+	if (array[mid] == value && (array[mid - 1] != value))
 		return (mid);
 
 	if (array[mid] >= value)
