@@ -2,39 +2,41 @@
 import requests
 
 
-def count_words(subreddit, word_list, after='', word_counts=None):
+def count_words(subreddit, word_list, after = None,  sum_dict=None):
 
-    if word_counts is None:
-        word_counts = {}
-
-    normalized_words = [word.lower() for word in word_list]
+    if sum_dict is None:
+        sum_dict = {}
 
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    headers = {'User-Agent': 'python:word.count:v1.0 (by /u/yourusername)'}
-    params = {'limit': 100, 'after': after}
-
+    headers = {"User-Agent": "python:word.count:v1.0 (by /u/yourusername)"}
+    params = {"after": after, "limit": 100} if after else {"limit": 100}
     response = requests.get(url, headers=headers, params=params)
 
     if response.status_code != 200:
         return
 
-    data = response.json().get('data', {})
-    posts = data.get('children', [])
-    after = data.get('after')
+    data = response.json()
+    posts = data["data"]["children"]
+    after = data["data"]["after"]
+    for found in posts:
+        list1 = found["data"]["title"].lower()
+        list1 = list1.split()
+        for i in word_list:
+            i = i.lower()
+            sum_dict[i] = sum_dict.get(i, 0) + list1.count(i)
 
-    for post in posts:
-        title = post['data'].get('title', '').lower()
-        for word in normalized_words:
-            word_counts[word] = word_counts.get(word, 0)
-            + title.split().count(word)
+    if after is None or not posts:
+        myKeys = list(sum_dict.keys())
+        myKeys.sort()
+        print(myKeys)
+        sd = {i: sum_dict[i] for i in myKeys}
+        sorted_items = sorted(sd.items(), key=lambda x: (-x[1], x[0]))
 
-    if after is not None:
-        count_words(subreddit, word_list, after, word_counts)
-    else:
-        sorted_counts = sorted(
-            word_counts.items(),
-            key=lambda x: (-x[1], x[0])
-        )
-        for word, count in sorted_counts:
+        for word, count in sorted_items:
             if count > 0:
                 print(f"{word}: {count}")
+        return
+    
+    print(sum_dict)
+    count_words(subreddit, word_list, after, sum_dict)
+            
