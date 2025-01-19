@@ -39,4 +39,3 @@ def count_words(subreddit, word_list, after = None,  sum_dict=None):
     
     print(sum_dict)
     count_words(subreddit, word_list, after, sum_dict)
-test
