@@ -34,15 +34,8 @@ binary_tree_t *get_node_by_index(binary_tree_t *root, size_t index)
  * heapify_down - Restores the Max Heap property by sifting down a node.
  * @node: Pointer to the node to sift down.
  */
-/**
- * heapify_down - Restores the Max Heap property by sifting down a node.
- * @node: Pointer to the node to sift down.
- */
 void heapify_down(heap_t *node)
 {
-    if (!node)
-        return;
-
     heap_t *largest = node;
     heap_t *left = node->left;
     heap_t *right = node->right;
@@ -57,11 +50,9 @@ void heapify_down(heap_t *node)
         int temp = node->n;
         node->n = largest->n;
         largest->n = temp;
-
         heapify_down(largest);
     }
 }
-
 
 /**
  * heap_extract - Extracts the root node of a Max Binary Heap.
