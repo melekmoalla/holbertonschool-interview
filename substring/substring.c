@@ -57,13 +57,9 @@ int check_concat(const char *s, int start, int word_len, int nb_words,
  */
 int *find_substring(const char *s, const char **words, int nb_words, int *n)
 {
-	int len, word_len, total_len;
-	int *indices = NULL;
-	int count = 0;
+	int len, word_len, total_len, count = 0, *indices = NULL;
 	word_entry ref[nb_words];
-	int ref_size = 0;
-	int i, j;
-	int found;
+	int ref_size = 0, i, j, found;
 
 	if (!s || !words || nb_words == 0 || !n)
 	return (NULL);
@@ -72,6 +68,15 @@ int *find_substring(const char *s, const char **words, int nb_words, int *n)
 	total_len = word_len * nb_words;
 	for (i = 0; i < nb_words; i++)
 	{
+		len = strlen(s);
+		word_len = strlen(words[0]);
+		total_len = word_len * nb_words;
+			if (len < total_len)
+		{
+			*n = 0;
+			return (NULL);
+		}
+
 		found = 0;
 		for (j = 0; j < ref_size; j++)
 		{
