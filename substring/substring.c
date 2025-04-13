@@ -1,133 +1,99 @@
-#include <stdlib.h>
-#include <string.h>
 #include "substring.h"
-
-typedef struct word_entry
-{
-    char *word;
-    int count;
-} word_entry;
-
 /**
- * get_word_index - Finds the index of a word in the entries array.
- * @entries: Array of word_entry.
- * @size: Size of the entries array.
- * @word: Word to find.
- *
- * Return: Index of the word if found, -1 otherwise.
+ * compare_words - Compares two strings for equality.
+ * @word1: The first string.
+ * @word2: The second string.
+ * Return: (1) if equal, (0) otherwise.
  */
-static int get_word_index(word_entry *entries, int size, const char *word)
+int compare_words(const char *word1, const char *word2)
+{return (strcmp(word1, word2) == 0); }
+/**
+ * check_concat - Checks if the substring starting at 'start' in 's'
+ * @s: Input string.
+ * @start: Starting index in s.
+ * @word_len: Length of one word.
+ * @nb_words: Total number of words.
+ * @ref: Array of word_entry with reference counts.
+ * @ref_size: Number of unique words in ref.
+ * Return: (1) if the concatenation is valid, (0) otherwise.
+ */
+int check_concat(const char *s, int start, int word_len, int nb_words,
+				 word_entry *ref, int ref_size)
 {
-    for (int i = 0; i < size; i++)
-    {
-        if (strcmp(entries[i].word, word) == 0)
-            return i;
-    }
-    return -1;
+	int i, j, found;
+	word_entry temp[ref_size];
+
+	for (i = 0; i < ref_size; i++)
+	{
+		temp[i].word = ref[i].word;
+		temp[i].count = ref[i].count; }
+	for (i = 0; i < nb_words; i++)
+	{
+		const char *word = s + start + i * word_len;
+
+		found = 0;
+		for (j = 0; j < ref_size; j++)
+		{
+			if (strncmp(word, temp[j].word, word_len) == 0)
+			{
+				if (temp[j].count == 0)
+				{return (0); }
+				temp[j].count--;
+				found = 1;
+				break; }
+		}
+		if (!found)
+		{return (0); }
+	}
+	return (1);
 }
-
 /**
- * find_substring - Finds all starting indices of substrings in s that are
- *                  concatenations of all words in words array.
- * @s: The input string.
- * @words: Array of words to concatenate.
- * @nb_words: Number of words in the array.
- * @n: Pointer to store the number of indices found.
- *
- * Return: Array of starting indices, or NULL if none found.
+ * find_substring - Finds all starting indices of substrings
+ * @s: Input string.
+ * @words: Array of words.
+ * @nb_words: Number of words.
+ * @n: Pointer to store the number of elements in the returned array.
+ * Return: An allocated array of starting indices, or (NULL) if no solution.
  */
-int *find_substring(char const *s, char const **words, int nb_words, int *n)
+int *find_substring(const char *s, const char **words, int nb_words, int *n)
 {
-    int len_s = strlen(s);
-    int word_len = strlen(words[0]);
-    int total_len = word_len * nb_words;
-    int *indices = malloc(sizeof(int) * len_s);
-    int count = 0;
+	int len, word_len, total_len;
+	int *indices = NULL;
+	int count = 0;
+	word_entry ref[nb_words];
+	int ref_size = 0;
+	int i, j;
+	int found;
 
-    if (!indices || len_s < total_len)
-    {
-        if (indices)
-            free(indices);
-        *n = 0;
-        return NULL;
-    }
-
-    word_entry *ref = malloc(sizeof(word_entry) * nb_words);
-    if (!ref)
-    {
-        free(indices);
-        *n = 0;
-        return NULL;
-    }
-
-    int ref_size = 0;
-    for (int i = 0; i < nb_words; i++)
-    {
-        int idx = get_word_index(ref, ref_size, words[i]);
-        if (idx == -1)
-        {
-            ref[ref_size].word = strdup(words[i]);
-            ref[ref_size].count = 1;
-            ref_size++;
-        }
-        else
-        {
-            ref[idx].count++;
-        }
-    }
-
-    for (int i = 0; i <= len_s - total_len; i++)
-    {
-        word_entry *seen = malloc(sizeof(word_entry) * ref_size);
-        if (!seen)
-            continue;
-
-        for (int k = 0; k < ref_size; k++)
-        {
-            seen[k].word = ref[k].word;
-            seen[k].count = 0;
-        }
-
-        int matched = 1;
-        for (int j = 0; j < nb_words; j++)
-        {
-            int start = i + j * word_len;
-            char *sub = strndup(s + start, word_len);
-            if (!sub)
-            {
-                matched = 0;
-                break;
-            }
-
-            int idx = get_word_index(ref, ref_size, sub);
-            free(sub);
-
-            if (idx == -1 || seen[idx].count + 1 > ref[idx].count)
-            {
-                matched = 0;
-                break;
-            }
-
-            seen[idx].count++;
-        }
-
-        if (matched)
-            indices[count++] = i;
-
-        free(seen);
-    }
-
-    for (int i = 0; i < ref_size; i++)
-        free(ref[i].word);
-    free(ref);
-
-    if (count == 0)
-    {
-        free(indices);
-        *n = 0;
-        return NULL;
-    }
-
-    *n = count;
-    return indices;
+	if (!s || !words || nb_words == 0 || !n)
+	return (NULL);
+	len = strlen(s);
+	word_len = strlen(words[0]);
+	total_len = word_len * nb_words;
+	for (i = 0; i < nb_words; i++)
+	{
+		found = 0;
+		for (j = 0; j < ref_size; j++)
+		{
+			if (compare_words(words[i], ref[j].word))
+			{ref[j].count++;
+				found = 1;
+				break; } }
+		if (!found)
+		{ref[ref_size].word = (char *)words[i];
+			ref[ref_size].count = 1;
+			ref_size++; } }
+	indices = malloc(sizeof(int) * (len - total_len + 1));
+	if (!indices)
+	return (NULL);
+	for (i = 0; i <= len - total_len; i++)
+	{
+		if (check_concat(s, i, word_len, nb_words, ref, ref_size))
+		{indices[count++] = i; } }
+	*n = count;
+	if (count)
+	return (indices);
+	else
+	{free(indices);
+		return (NULL); }
 }
